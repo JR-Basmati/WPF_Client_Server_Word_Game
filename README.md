@@ -12,6 +12,23 @@ This was a school project where we had to build a simple word guessing game via:
 
 ---
 
+# Design Solutions
+
+## Protocol Design and Parser
+**Problem:** Need to design a clearly defined protocol and build an appropriate parsing solution
+
+**Solution:** Just use a JSON library. I *think* the teacher was trying to steer us towards some kind of fixed-width fields or delimiters with a header indicating message size. But they didn't explicitly state we couldn't build our protocol on top of an existing one.
+
+## Graceful Shutdown of Listener Threads
+**Problem:** Not so much a design issue, but this was our first time working with threads and cancellation tokens, so this tripped up a lot of students.
+
+**Solution:** Build a `ShutdownManager` class. This was instantiated on startup and performed:
+- Tracking the list of players to notify of server shutdown
+- Cancelling all tokens to shutdown currently active threads
+- Firing off TCP messages to 'unblock' the `TcpListener`
+
+
+
 # TCP/IP Command Protocol
 - Uses JSON formatting
 	- NuGet pkg Newtonsoft.Json [Project Documentation](https://www.nuget.org/packages/Newtonsoft.Json/13.0.3#show-readme-container)
