@@ -1,0 +1,248 @@
+﻿<Window x:Class="ClientSide.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClientSide"
+        mc:Ignorable="d" FontSize="18"
+        Title="Word Finder" Height="600" Width="800">
+
+    <Window.Background>
+        <ImageBrush ImageSource="Resources/letters.jpeg" Stretch="UniformToFill" />
+    </Window.Background>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <Border x:Name="ConnectBorder" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Center " 
+                Background="#e8d7bd" 
+                BorderBrush="Black" 
+                BorderThickness="2" 
+                CornerRadius="10"
+                MaxHeight="500"
+                MaxWidth="300"
+                Padding="10">
+            
+            <StackPanel x:Name="ConnectionPanel" 
+                        Grid.Column="1" 
+                        Grid.Row="1" 
+                        Grid.ColumnSpan="4"  
+                        HorizontalAlignment="Center"
+                        MaxHeight="500"
+                        MaxWidth="300">
+                <TextBlock 
+                       HorizontalAlignment="Center"
+                       FontSize="36"
+                       Margin="20"
+                       FontWeight="Bold">
+                       Word Finder
+                </TextBlock>
+                
+                <TextBlock  
+                   FontWeight="SemiBold" 
+                   Text="Enter IP Address:"
+                   Margin ="0 ,0, 10 ,10"
+                   HorizontalAlignment="Center"
+                />
+
+               
+
+                <TextBox x:Name="txtbxIpAddress"
+                    Text="{Binding IpAddress, UpdateSourceTrigger=PropertyChanged}" 
+                    TextAlignment="Center"
+                    Width="150"
+                    Margin ="0,0,0,10"
+                />
+               
+                 <CheckBox
+                    x:Name="LocalConnectionCheckBox"
+                    HorizontalAlignment="Center"
+                    Margin="0,-5,0,10"
+                    FontSize="12"
+                    Content="Use Local Connection"
+                    IsChecked="{Binding LocalConnectionCheckbox, UpdateSourceTrigger=PropertyChanged}"
+                    Checked="LocalConnectionCheckBox_Checked"
+                    Unchecked="LocalConnectionCheckBox_Unchecked"
+                 />
+                
+                <TextBlock 
+                   FontWeight="SemiBold" 
+                   Text="Enter Port Number:"
+                   Margin ="0 ,0, 0 ,10"
+                   HorizontalAlignment="Center"/>
+                
+                
+                <TextBox x:Name="txtbxPort" 
+                    Text="{Binding Port, UpdateSourceTrigger=LostFocus}"  
+                    TextAlignment="Center"
+                    Grid.Column="2" 
+                    Grid.Row="3"
+                    Width="150"
+                    Margin ="0,0,0,10" 
+                />
+                
+                <TextBlock Grid.Column="1" 
+                   Grid.Row="4" 
+                   FontWeight="SemiBold" 
+                   Text="Enter Username:"
+                   Margin ="0,0,0,10"
+                   HorizontalAlignment="Center"
+                />
+                
+                <TextBox x:Name="txtbxUserName"
+                     Text="{Binding UserName, UpdateSourceTrigger=LostFocus}"
+                     TextAlignment="Center"
+                     Width="150"
+                     Margin ="0,0,0,10" 
+                     Grid.ColumnSpan="2"
+                />
+                
+                <TextBlock 
+                    FontWeight="SemiBold"
+                    Text="Enter A Time Limit (in seconds): "
+                    Margin ="0,0,0,10"
+                    HorizontalAlignment="Center"
+                />
+                <TextBox x:Name="txtbxTimeLimit"
+                     Text="{Binding TimeLimit, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
+                     TextAlignment="Center"
+                   Width="150"
+                   Margin ="0,0,0,20"/>
+                <Button x:Name="connectButton" 
+                    Content="Connect"  
+                    Click="connectButton_Click"
+                    Width="150" 
+                />
+
+            </StackPanel>
+        </Border>
+
+        <Border x:Name="GameBorder" 
+                Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Visibility="Collapsed"
+                Background="#e8d7bd"
+                BorderBrush="Black" 
+                BorderThickness="2" 
+                CornerRadius="10"
+                MaxHeight="600"
+                MaxWidth="800"
+                Padding="10">
+
+            <StackPanel x:Name="GamePanel" 
+                        Grid.Column="1" 
+                        Grid.Row="1" 
+                        Grid.ColumnSpan="4" 
+                        HorizontalAlignment="Stretch" 
+                        MaxHeight="600"
+                        MaxWidth="800"
+                        Visibility="Collapsed" >
+
+                <TextBlock  
+                    HorizontalAlignment="Center"
+                    FontSize="36"
+                    Margin="20"
+                    FontWeight="Bold"
+                    Text ="Word Finder"
+                />
+
+                <TextBlock
+                    Text="{Binding ClientSidePort, StringFormat='Port Number: {0}'}"
+                    FontSize="12"
+                    HorizontalAlignment="Right"
+                />
+
+                <TextBlock 
+                    Text="{Binding UserName, StringFormat = 'Hello {0}, find as many words as you can:'}"
+                    TextWrapping="Wrap"
+                    FontWeight="SemiBold"
+                    Margin="20,0,10,10"
+                />
+                <TextBlock 
+                x:Name="GameStringTextBlock" 
+                Text="{Binding GameString, UpdateSourceTrigger=PropertyChanged }"
+                    
+                    FontFamily="Segoe UI"
+                    
+                TextWrapping="Wrap"
+                Margin="20,20,20,20" />
+
+                <TextBlock
+                    Text="Words Left:"
+                    FontWeight="SemiBold"
+                    Margin="20,0,0,0"
+                />
+
+                <TextBlock
+                    x:Name="WordCountTextBlock"
+                    Text="{Binding WordCount, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="130,-23,0,10"
+                />
+
+                <TextBlock
+                    Text="Time Left:"
+                    FontWeight="SemiBold"
+                    Margin="20,0,0,0"
+                />
+
+                <TextBlock
+                    x:Name="TimerTextBlock"
+                    Text="0:00"
+                    Margin="130,-23,0,10"
+                />
+
+                <TextBlock
+                    x:Name="FeedBackTextBlock"
+                    Text="{Binding FeedbackMessage, UpdateSourceTrigger=PropertyChanged}"
+                    Foreground="{Binding FeedbackColour, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="0,-23,0,10"
+                    HorizontalAlignment="Center"
+                />
+
+                <TextBlock 
+                    Text="Enter your word:"
+                    FontWeight="SemiBold"
+                    HorizontalAlignment="Center"
+                />
+
+                <TextBox
+                    x:Name="txtbxGuess"
+                    TextAlignment="Center"
+                    Width="300"
+                    HorizontalAlignment="Center"
+                />
+
+                <Button 
+                    x:Name="submitWordButton"
+                    Content="Submit Word"
+                    
+                    IsEnabled="{Binding ServerActive}"
+                    Click="SubmitWordButton_Click"
+                    Margin="20"
+                    HorizontalAlignment="Center"
+                />
+
+                <Button 
+                    x:Name="endGameButton"
+                    Content="End Game"
+                    IsEnabled="{Binding ServerActive}"
+                    Click="EndGameButton_Click"
+                    Width="150"
+                    HorizontalAlignment="Center"
+                    Margin="20"
+                />
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
