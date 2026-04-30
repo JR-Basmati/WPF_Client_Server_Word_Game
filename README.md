@@ -1,3 +1,17 @@
+# WPF Client-Server Word Game
+This was a school project where we had to build a simple word guessing game via:
+- WPF (.NET Framework)
+- The `TcpListener` and `TcpClient` classes from `System.Net.Sockets`
+
+# Screenshots
+<img width="786" height="594" alt="Login" src="https://github.com/user-attachments/assets/fbf88f6c-5804-44cb-9318-1e7499309dce" />
+
+<img width="784" height="582" alt="Play" src="https://github.com/user-attachments/assets/60a6567f-ed3a-4637-bdf0-ed1b6316d5ae" />
+
+<img width="1154" height="672" alt="Server" src="https://github.com/user-attachments/assets/f1928200-a8c6-4b63-8276-977a75f52deb" />
+
+---
+
 # TCP/IP Command Protocol
 - Uses JSON formatting
 	- NuGet pkg Newtonsoft.Json [Project Documentation](https://www.nuget.org/packages/Newtonsoft.Json/13.0.3#show-readme-container)
